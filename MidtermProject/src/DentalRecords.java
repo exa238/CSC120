@@ -67,7 +67,7 @@ public class DentalRecords {
     }// end of the main method
 
     //method to get the size of the family
-    static int getFamilySize(Scanner scanner){
+    public static int getFamilySize(Scanner scanner){
 
         int familySize = 0;
         //flag for valid input
@@ -102,7 +102,7 @@ public class DentalRecords {
 
 
     // method to get the teeth data for a family member
-    static String getName(Scanner scanner, int memberIndex){
+    public static String getName(Scanner scanner, int memberIndex){
         System.out.print("Please enter the name for family member" + (memberIndex + 1) + ": ");
         //flag for valid input
         return scanner.nextLine(); // read full names
@@ -110,7 +110,7 @@ public class DentalRecords {
 
 
     //method to get the teeth data for a family member
-    static char[] getTeeth(Scanner scanner, String layer, String memberName) {
+    public static char[] getTeeth(Scanner scanner, String layer, String memberName) {
         //array to store teeth data
         char[] teeth = new char[MAX_TEETH];
         //flag for valid input
@@ -168,7 +168,7 @@ public class DentalRecords {
     }// end of the getTeeth method
 
     //method to get the user's menu choice
-    static char getMenuOfChoices(Scanner scanner) {
+    public static char getMenuOfChoices(Scanner scanner) {
         char choice;
         do {
             System.out.print("(P)rint, (E)xtract, (R)oot, e(X)it: ");
@@ -191,7 +191,7 @@ public class DentalRecords {
 
 
     //method for printing teeth data for the family
-    static void printFamilyTeeth(String[] family, char[][][] teethData){
+    public static void printFamilyTeeth(String[] family, char[][][] teethData){
         // loop through each family member
         for(int index = 0; index < family.length && family[index] != null; index++) {
             // print family membe rname
@@ -222,7 +222,7 @@ public class DentalRecords {
     }// end of the printFamilyTeeth method
 
     //method to extract a tooth from a family member
-    static void extractTooth(Scanner scanner, String[] family, char[][][] teethData){
+    public static void extractTooth(Scanner scanner, String[] family, char[][][] teethData){
         String memberName; // variable to hold the name of a family member
         int memberIndex =-1; // index of the family member
         boolean validInput = false;  // flag for valid input
@@ -267,7 +267,7 @@ public class DentalRecords {
 
     } // end of the extractTooth method
 
-    static int findFamilyMemberIndex(String[] family, String memberName){
+    public static int findFamilyMemberIndex(String[] family, String memberName){
         for(int index = 0; index < family.length; index++){
             if(family[index] != null && family[index].equalsIgnoreCase(memberName)){//REVISE
                 return index;
@@ -279,7 +279,7 @@ public class DentalRecords {
     }// end of the findFamilyMemberIndex method
 
     //method to get the layer (upper or lower) for tooth extraction
-    static char getLayer(Scanner scanner){
+    public static char getLayer(Scanner scanner){
         char layer = ' '; // variable for layer choice
         while(layer != 'U' && layer != 'L'){
             System.out.print("Which tooth layer (U)pper or (L)ower: ");
@@ -297,7 +297,7 @@ public class DentalRecords {
 
 
     // method to get the tooth number for extraction
-    static int getToothIndex(Scanner scanner, char layer) {
+    public static int getToothIndex(Scanner scanner, char layer) {
         int toothIndex = -1;
         //loop until tooth number is provided
         while (toothIndex < 1 || toothIndex > MAX_TEETH) {
@@ -321,7 +321,7 @@ public class DentalRecords {
     }// end of the getToothIndex method
 
     //method to report root canal data
-    static void reportRootCanal(char[][][] teethData, int familySize) {
+    public static void reportRootCanal(char[][][] teethData, int familySize) {
         int incisorCount = 0, biscupidCount = 0, missingCount = 0;
 
         // Count the types of teeth
