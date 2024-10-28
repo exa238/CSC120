@@ -1,0 +1,44 @@
+﻿Assign Your Teeth with a Variable
+* Define a Tooth class that includes:
+   * toothType (the “I”, “B”, or “M” teeth)
+   * Use a boolean to indicate if the tooth is missing
+Create a Family Member Class
+* Define a FamilyMember class to represent each family member:
+   * Attributes:
+      * name (the name of the family member)
+      * upperTeeth (list of upper teeth)
+      * lowerTeeth (list of lower teeth)
+   * Methods:
+      * validateTeeth(teethLayer, toothNumber) (to validate the teeth)
+      * getTeeth() (to retrieve all teeth)
+Manage Teeth Records
+* Define a TeethManager class to handle:
+   * Attributes:
+      * familyMembers (list to store family member instances)
+   * Methods:
+      * addFamilyMember (to add a family member)
+      * validateFamilyMembers() (to validate all members)
+      * calculateRootCanalIndices() (to calculate root canal indices)
+      * displayDentalRecords() (to display results)
+Create a Root Canal Calculator
+* Define a RootCanalCalculator class that includes:
+   * Method:
+      * computeRoots(a, b, c) (to calculate the roots of a quadratic equation)
+Input Collection Logic
+* Create an InputCollector class to handle user inputs:
+   * Methods:
+      * getNumberOfPeople() (to get the number of people in the family)
+      * getFamilyMemberNames() (to collect names of family members)
+      * getTeethData(familyMember) (to collect lower and upper teeth for each member)
+Implement Main Application Logic
+* Create a main() function to coordinate the flow of the program:
+   1. Instantiate TeethManager.
+   2. Use InputCollector to collect data from the user:
+      * Get the number of people in the family.
+      * Get family member names.
+      * For each family member, collect upper and lower teeth.
+   3. Add each family member to TeethManager.
+   4. Validate family members and their teeth.
+   5. Calculate root canal indices.
+   6. Display the dental records.
+   7. Print a closing message: "Exit (with a smile)".
