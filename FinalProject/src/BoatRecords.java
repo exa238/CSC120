@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The BoatRecords class manages a fleet of boats allowing the user to add,
+ * remove, and view boats as well as manage boat-related expenses. It interacts
+ * with a list of boats and provides a menu for the user.
+ */
+
 public class BoatRecords {
 
     //establish your constants for maximum purchase price and maximum length in feet
@@ -14,7 +20,13 @@ public class BoatRecords {
     private static ArrayList<Boat> boatList = new ArrayList<>(); //array list
     private static final Scanner keyboard = new Scanner(System.in); //scanner object
 
-
+    /**
+     * Main method to start the fleet management system. It loads boat data from
+     * a csv file, displays a menu to the user, and processes user input to manage
+     * boats and expenses.
+     *
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
 
         //welcome banner
@@ -60,6 +72,13 @@ public class BoatRecords {
     }// end of main method
 
 
+    /**
+     * Displays a menu of options to the user and returns the user's choice.
+     *
+     * @param keyboard A Scanner object used to capture user input.
+     * @return The character representing the user's choice from the menu.
+     */
+
 
     private static char getMenuOfChoices(Scanner keyboard) {
         // prompt the user for their menu choice
@@ -67,6 +86,12 @@ public class BoatRecords {
         String input = keyboard.nextLine(); // read user input
         return input.toUpperCase().charAt(0); // return the first input character as capital
     }// end of the getMenuofChoices method
+
+
+    /**
+     * Prints the current inventory of boats, including each boat's details and
+     * total paid and spent amounts.
+     */
 
     public static void printInventory() {
         // display a report of the current boat fleet
@@ -86,6 +111,10 @@ public class BoatRecords {
     }//end of printInventory method
 
 
+    /**
+     * Prompts the user to enter a new boat's data in csv format, validates the input,
+     * and adds the boat to the fleet if the input is correct.
+     */
 
 
     private static void addBoat() {
@@ -120,6 +149,11 @@ public class BoatRecords {
     }// end of the addBoat method
 
 
+    /**
+     * Removes a boat from the fleet based on the boat's name. If the boat is found,
+     * it is removed. Otherwise an error message is displayed.
+     */
+
     private static void removeBoat() {
         System.out.print("Which boat do you want to remove? ");
         String boatName = keyboard.nextLine();// read boat name
@@ -145,6 +179,12 @@ public class BoatRecords {
 
     }// end of the removeBoat method
 
+
+    /**
+     * Prompts the user to request permission to spend money on a specific boat.
+     * If the expense is within the remaining budget, the expense is authorized.
+     * Otherwise a message is displayed indicating the remaining budget.
+     */
 
     public static void requestPermission() {
         System.out.println("Which boat do you want to spend on?");
@@ -183,6 +223,14 @@ public class BoatRecords {
 
 
 
+    /**
+     * Loads boat data from a csv file into the boat list. Each line in the file represents
+     * a boat's attributes and is used to create a new Boat object.
+     *
+     * @param csvBoatFile The path to the csv file containing boat data.
+     * @param boatList The list to store the loaded boats.
+     * @throws IOException If there is an error reading the file.
+     */
 
 
     public static void loadBoatData(String csvBoatFile, ArrayList<Boat> boatList) throws IOException {
