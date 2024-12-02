@@ -10,7 +10,7 @@ public class BoatRecords {
     public static final double MAX_PURCHASE_PRICE = 1000000;
     public static final double MAX_LENGTH_IN_FEET = 100;
 
-    //these two are for the fleet data storage
+    //ArrayList to store the fleet of boats and Scanner for user input
     private static ArrayList<Boat> boatList = new ArrayList<>(); //array list
     private static final Scanner keyboard = new Scanner(System.in); //scanner object
 
@@ -22,8 +22,10 @@ public class BoatRecords {
         System.out.println("--------------------------------------");
 
         try{
+            // load boat data from the specified CSV file into the boatList
             loadBoatData("FleetData.csv", boatList);
         } catch (IOException e) {
+            // handle any errors that occur during file reading
             System.out.println("Error loading boat data: " + e.getMessage());
         }
 
@@ -60,52 +62,67 @@ public class BoatRecords {
 
 
     private static char getMenuOfChoices(Scanner keyboard) {
+        // prompt the user for their menu choice
         System.out.print("(P)rint, (A)dd, (R)emove, (E)xpense, e(X)it: ");
-        String input = keyboard.nextLine();
-        return input.toUpperCase().charAt(0);
+        String input = keyboard.nextLine(); // read user input
+        return input.toUpperCase().charAt(0); // return the first input character as capital
     }// end of the getMenuofChoices method
 
-    private static void printInventory() {
-        System.out.println("\nFleet report:");
+    public static void printInventory() {
+        // display a report of the current boat fleet
+        System.out.println("Fleet report:");
         double totalPaid = 0;
         double totalSpent = 0;
-        for(Boat boat : boatList) {
+
+        // loop through the boatList to print each boat's details
+        for (Boat boat : boatList) {
             System.out.println(boat);
             totalPaid += boat.getPurchasePrice();
             totalSpent += boat.getExpenses();
-        }// end of the for loop
+        }
+
+        // total values of all boats' purchase prices and expenses
         System.out.printf("Total: Paid $%.2f | Spent $%.2f\n", totalPaid, totalSpent);
-    }// end of the printInventory method
+    }//end of printInventory method
+
+
+
 
     private static void addBoat() {
-        System.out.print("Enter boat type (SAILING/POWER): ");
-        String typeInput = keyboard.nextLine().toUpperCase();
+        System.out.print("Please enter the new boat CSV data: ");
+        String input = keyboard.nextLine();  // Get the full CSV input
 
-        System.out.print("Enter boat name: ");
-        String name = keyboard.nextLine();
+        // split the input string by commas to separate values
+        String[] userInputArray = input.split(",");
 
-        System.out.print("Enter year: ");
-        int year = keyboard.nextInt();
+        if (userInputArray.length == 6) {  // ensure the input has the correct number of fields
+            try {
+                // create the Boat object using the parsed CSV data
+                Boat boat = new Boat(
+                        Boat.BoatType.valueOf(userInputArray[0].toUpperCase()),  // boat type (SAILING/POWER)
+                        userInputArray[1],  // Boat name
+                        Integer.parseInt(userInputArray[2]), //year
+                        userInputArray[3],  // Make/Model
+                        Double.parseDouble(userInputArray[4]),  // length
+                        Double.parseDouble(userInputArray[5])   // purchase price
+                );
 
-        keyboard.nextLine(); // clear buffer
-        System.out.print("Enter make/model: ");
-
-        String makeModel = keyboard.nextLine();
-        System.out.print("Enter length in feet: ");
-
-        double length = keyboard.nextDouble();
-        System.out.print("Enter purchase price: ");
-
-        double purchasePrice = keyboard.nextDouble();
-
-        Boat.BoatType type = Boat.BoatType.valueOf(typeInput);
-        boatList.add(new Boat(type, name, year, makeModel, length, purchasePrice));
-        System.out.println("Boat added successfully.");
+                boatList.add(boat);  // add the boat to the list
+                System.out.println("Boat added successfully.");
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Invalid number format in the input.");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: Invalid boat type in the input.");
+            }
+        } else {
+            System.out.println("Error: Invalid input format. Please provide all 6 fields.");
+        }
     }// end of the addBoat method
+
 
     private static void removeBoat() {
         System.out.print("Which boat do you want to remove? ");
-        String boatName = keyboard.nextLine();
+        String boatName = keyboard.nextLine();// read boat name
 
         boolean removed_boat = false;
 
@@ -119,62 +136,88 @@ public class BoatRecords {
         }// end of the for loop
 
         if(removed_boat) {
+            //let the user know that the boat has been removed
             System.out.println("Boat removed.");
         }else {
+            // let the user know if the specified boat was not found
             System.out.println("Cannot find boat " + boatName);
         }
 
     }// end of the removeBoat method
 
 
-    private static void requestPermission() {
-        System.out.print("Which boat do you want to spend on? ");
-        String boatName = keyboard.nextLine();
-        for(Boat boat : boatList) {
+    public static void requestPermission() {
+        System.out.println("Which boat do you want to spend on?");
+        String boatName = keyboard.nextLine().trim(); // read and trim the boat name
+
+        Boat selectedBoat = null;
+
+        // look through the boatList to find the specific boat
+        for (Boat boat : boatList) {
             if (boat.getName().equalsIgnoreCase(boatName)) {
-                System.out.print("How much do you want to spend?");
-                double amount = keyboard.nextDouble();
-                if (boat.canSpend(amount)) {
-                    boat.spend(amount);
-                    System.out.printf("Expense authorized, $%.2f spent.\n", amount);
-                }else {
-                    System.out.printf("Expense not permitted, only $%.2f left to spend.\n", boat.getRemainingBudget());
-                }
-                return;
+                selectedBoat = boat;
+                break;
             }
-        }// end of the for loop
+        }
 
-        System.out.println("Cannot find boat" + boatName);
+        if (selectedBoat == null) {
+            System.out.println("Cannot find boat " + boatName);
+            return;
+        }
 
+        System.out.println("How much do you want to spend?");
+        double amount = keyboard.nextDouble();
+        keyboard.nextLine();  // Consume the newline
+
+        // check if the boat can accept the expense based on the budget
+        if (selectedBoat.canSpend(amount)) {
+            selectedBoat.spend(amount);
+            // Round the expenses to 2 decimal places
+            System.out.println("Expense authorized, $" + String.format("%.2f", selectedBoat.getExpenses()) + " spent.");
+        } else {
+            // Round the remaining budget to 2 decimal places
+            System.out.println("Expense not permitted, only $" + String.format("%.2f", selectedBoat.getRemainingBudget()) + " left to spend.");
+        }
     }// end of the requestPermission method
 
+
+
+
+
+
     public static void loadBoatData(String csvBoatFile, ArrayList<Boat> boatList) throws IOException {
+        // method to load boat data from a csv file into the boatList
         try (BufferedReader reader = new BufferedReader(new FileReader(csvBoatFile))) {
             String currentLine = reader.readLine();  // Skip header if there is one
 
             while (currentLine != null) {
-                System.out.println("Processing line: " + currentLine);  // Debugging line
 
                 String[] userInputArray = currentLine.split(",");
+
                 try {
+                    // create a Boat object from the parsed data and add it to the boatList
                     Boat boat = new Boat(
-                            Boat.BoatType.valueOf(userInputArray[0].toUpperCase()),
-                            userInputArray[1],
-                            Integer.parseInt(userInputArray[2]),
-                            userInputArray[3],
-                            Double.parseDouble(userInputArray[4]),
-                            Double.parseDouble(userInputArray[5])
+                            Boat.BoatType.valueOf(userInputArray[0].toUpperCase()), // boat type
+                            userInputArray[1], // boat name
+                            Integer.parseInt(userInputArray[2]),// year
+                            userInputArray[3],//make or model
+                            Double.parseDouble(userInputArray[4]), // length
+                            Double.parseDouble(userInputArray[5])// purchase price
                     );
-                    boatList.add(boat);
+                    boatList.add(boat); // add the boat to the list
                 } catch (NumberFormatException e) {
                     System.out.println("Number error in line: " + currentLine);
                 } catch (IllegalArgumentException e) {
                     System.out.println("Boat type error in line: " + currentLine);
                 }
                 currentLine = reader.readLine();
-            }
+            }// end of the while loop
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
         }
-    }
+    }// end of the loadBoatData method
+
+
 
 
 

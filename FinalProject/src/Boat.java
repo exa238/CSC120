@@ -1,6 +1,9 @@
 public class Boat {
+
+    // enum to define the two possible types of boats
     public enum BoatType {SAILING, POWER}
 
+    // variables to hold the boat's properties
     private BoatType type;
 
     private String name;
@@ -15,10 +18,8 @@ public class Boat {
 
     private double expenses;
 
-
-    public Boat(BoatType type, String name, int year, String makeModel, double length, double purchasePrice){
-        System.out.println("Creating boat: " + type + ", " + name + ", " + year + ", " + makeModel + ", " + length + ", " + purchasePrice);
-
+    // constructor to initialize a new Boat object with specified values
+    public Boat(BoatType type, String name, int year, String makeModel, double length, double purchasePrice) {
         this.type = type;
 
         this.name = name;
@@ -32,39 +33,42 @@ public class Boat {
         this.purchasePrice = purchasePrice;
 
         this.expenses = 0.0;
+    }
 
-    }// end of Boat
-
-
-    public String getName(){
+    // getter for the boat's name
+    public String getName() {
         return name;
-    }// end of getName
+    }
 
-    public double getPurchasePrice(){
+    // getter for the boat's purchase price
+    public double getPurchasePrice() {
         return purchasePrice;
-    }// end of getPurchasePrice
+    }
 
-
-    public boolean canSpend(double amount){
+    // check if the boat can accept more expenses based on the budget
+    public boolean canSpend(double amount) {
         return (expenses + amount) <= purchasePrice;
-    }// end of canSpend
+    }
 
-    public void spend(double amount){
+    // add the expenses to the boat
+    public void spend(double amount) {
         this.expenses += amount;
-    }// end of spend
+    }
 
-    public double getRemainingBudget(){
+    // get the remaining budget
+    public double getRemainingBudget() {
         return purchasePrice - expenses;
-    }// end of getRemainingBudget
+    }
 
-    public double getExpenses(){
+    // get the total expenses for the boat
+    public double getExpenses() {
         return expenses;
-    }// end of getExpenses
+    }
 
+    // override toString method to return a formatted string of the boat details
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("%-8s %-20s %4d %-10s %4.1f' : Paid $ %.2f : Spent $ %.2f",
                 type, name, year, makeModel, length, purchasePrice, expenses);
     }
-
 }// end of the Boat class
