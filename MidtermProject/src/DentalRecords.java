@@ -19,7 +19,7 @@ public class DentalRecords {
         Scanner scanner = new Scanner (System.in);
         //array to store family member names
         String[] family = new String[MAX_FAMILY_AMOUNT];
-        // three dimensional array to store upper and lower teeth data
+        // three-dimensional array to store upper and lower teeth data
         char[][][] teethData = new char[MAX_FAMILY_AMOUNT][2][MAX_TEETH];
         //get the number of family members
         int familySize = getFamilySize(keyboard);
@@ -343,9 +343,9 @@ public class DentalRecords {
         }// end of the for loop
 
         // print the counts of each of the teeth
-        System.out.println("Incisor Count: " + incisorCount);
-        System.out.println("Biscupid Count: " + biscupidCount);
-        System.out.println("Missing Count: " + missingCount);
+//        System.out.println("Incisor Count: " + incisorCount);
+//        System.out.println("Biscupid Count: " + biscupidCount);
+//        System.out.println("Missing Count: " + missingCount);
 
         // Set coefficients for the quadratic equation
         int I = incisorCount;        // coefficient of x^2

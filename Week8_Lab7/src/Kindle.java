@@ -12,7 +12,7 @@ public class Kindle {
     }
     public Kindle(int theTotalPages){
         //2 lines of code because of two data member
-        theTotalPages = totalPages; //you would naturally write "this" in front to differentiate, but you can also change the name
+        totalPages = theTotalPages; //you would naturally write "this" in front to differentiate, but you can also change the name
         currentPage = 1; // because that is the first page, there is no page 0
     }
 
@@ -25,7 +25,7 @@ public class Kindle {
 
 
     public void turnPages (int turnPage) {
-        if ((currentPage + turnPage) <= currentPage) {
+        if ((currentPage + turnPage) <= totalPages) {
             currentPage = currentPage + turnPage; //update
         } else {
             System.out.println("You were on      : " + toString());
@@ -34,14 +34,7 @@ public class Kindle {
         }
     }
     public void turnPages (){
-        if((currentPage + 1 ) <= currentPage){
-            currentPage = currentPage + 1; //update
-        }
-        else{
-            System.out.println("You were on      : " + toString());
-            System.out.println("Turning 8 pages would take you to the last page");
-            System.out.println("You are now on         : Page 33 of 33");
-        }
+        turnPages(1);
     }// end of the turnPages method
 
 

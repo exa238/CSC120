@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FinalProject/FinalProject.iml" filepath="$PROJECT_DIR$/FinalProject/FinalProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MidtermProject/MidtermProject.iml" filepath="$PROJECT_DIR$/MidtermProject/MidtermProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week10_Lab8/Week10_Lab8.iml" filepath="$PROJECT_DIR$/Week10_Lab8/Week10_Lab8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week11_Lab9/Week11_Lab9.iml" filepath="$PROJECT_DIR$/Week11_Lab9/Week11_Lab9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week12_Lab10/Week12_Lab10.iml" filepath="$PROJECT_DIR$/Week12_Lab10/Week12_Lab10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week13_Lab11/Week13_Lab11.iml" filepath="$PROJECT_DIR$/Week13_Lab11/Week13_Lab11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week14_Lab12/Week14_Lab12.iml" filepath="$PROJECT_DIR$/Week14_Lab12/Week14_Lab12.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week1_Lab0/Week1_Lab0.iml" filepath="$PROJECT_DIR$/Week1_Lab0/Week1_Lab0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week2_Lab1/Week2_Lab1.iml" filepath="$PROJECT_DIR$/Week2_Lab1/Week2_Lab1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week3_Lab2/Week3_Lab2/Week3_Lab2.iml" filepath="$PROJECT_DIR$/Week3_Lab2/Week3_Lab2/Week3_Lab2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week4_Lab3/Week4_Lab3.iml" filepath="$PROJECT_DIR$/Week4_Lab3/Week4_Lab3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week5_Lab4/Week5_Lab4/Week5_Lab4.iml" filepath="$PROJECT_DIR$/Week5_Lab4/Week5_Lab4/Week5_Lab4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week6_Lab5/Week6_Lab5.iml" filepath="$PROJECT_DIR$/Week6_Lab5/Week6_Lab5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week7_Lab6/Week7_Lab6.iml" filepath="$PROJECT_DIR$/Week7_Lab6/Week7_Lab6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week8_Lab7/Week8_Lab7.iml" filepath="$PROJECT_DIR$/Week8_Lab7/Week8_Lab7.iml" />
+    </modules>
+  </component>
+</project>
