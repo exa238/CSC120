@@ -3,7 +3,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 /**
  * The BoatRecords class manages a fleet of boats allowing the user to add,
  * remove, and view boats as well as manage boat-related expenses. It interacts
@@ -12,9 +16,7 @@ import java.util.Scanner;
 
 public class BoatRecords {
 
-    //establish your constants for maximum purchase price and maximum length in feet
-    public static final double MAX_PURCHASE_PRICE = 1000000;
-    public static final double MAX_LENGTH_IN_FEET = 100;
+    private static final String DATA_FILE = "BoatData.ser";
 
     //ArrayList to store the fleet of boats and Scanner for user input
     private static ArrayList<Boat> boatList = new ArrayList<>(); //array list
@@ -29,16 +31,28 @@ public class BoatRecords {
      */
     public static void main(String[] args) {
 
+        loadData();
+
         //welcome banner
         System.out.println("Welcome to the Fleet Management System");
         System.out.println("--------------------------------------");
 
-        try{
-            // load boat data from the specified CSV file into the boatList
-            loadBoatData("FleetData.csv", boatList);
-        } catch (IOException e) {
-            // handle any errors that occur during file reading
-            System.out.println("Error loading boat data: " + e.getMessage());
+//        try{
+//            // load boat data from the specified CSV file into the boatList
+//            loadBoatData("FleetData.csv", boatList);
+//        } catch (IOException e) {
+//            // handle any errors that occur during file reading
+//            System.out.println("Error loading boat data: " + e.getMessage());
+//        }
+//        loadData();
+
+        if (boatList.isEmpty()) {
+            // If no saved data exists, try loading from CSV
+            try {
+                loadBoatData("FleetData.csv", boatList);
+            } catch (IOException e) {
+                System.out.println("Error loading boat data from CSV: " + e.getMessage());
+            }
         }
 
 
@@ -61,6 +75,7 @@ public class BoatRecords {
                     requestPermission();
                     break;
                 case 'X': // exit the program
+                    saveData();
                     System.out.println("Exiting the Fleet Management System");
                     break;
                 default: //otherwise, handle the invalid menu option
@@ -83,9 +98,15 @@ public class BoatRecords {
     private static char getMenuOfChoices(Scanner keyboard) {
         // prompt the user for their menu choice
         System.out.print("(P)rint, (A)dd, (R)emove, (E)xpense, e(X)it: ");
-        String input = keyboard.nextLine(); // read user input
-        return input.toUpperCase().charAt(0); // return the first input character as capital
-    }// end of the getMenuofChoices method
+        String input = keyboard.nextLine().trim(); // Read and trim user input
+
+        if (input.isEmpty()) {
+            return ' '; // Return a default invalid character if input is empty
+        }
+
+        return input.toUpperCase().charAt(0); // Return the first input character as capital
+    }
+
 
 
     /**
@@ -264,6 +285,36 @@ public class BoatRecords {
             System.out.println("Error reading file: " + e.getMessage());
         }
     }// end of the loadBoatData method
+
+    /**
+     * Saves the current boat list to a file.
+     */
+    public static void saveData() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
+            oos.writeObject(boatList);
+            System.out.println("Boat data saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Error saving boat data: " + e.getMessage());
+        }
+    }// end of the saveData method
+
+    /**
+     * Loads the boat list from a file.
+     */
+    @SuppressWarnings("unchecked")
+    public static void loadData() {
+        File file = new File(DATA_FILE);
+        if (file.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
+                boatList = (ArrayList<Boat>) ois.readObject();
+                System.out.println("Boat data loaded successfully.");
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error loading boat data: " + e.getMessage());
+            }
+        } else {
+            System.out.println("No saved data found. Starting fresh.");
+        }
+    }
 
 
 

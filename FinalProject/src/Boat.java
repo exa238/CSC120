@@ -1,24 +1,19 @@
-public class Boat {
+import java.io.Serializable;
 
+public class Boat implements Serializable {
     /**
      * Represents a Boat with various attributes such as type, name, year, make/model, length,
      * purchase price, and expenses.
      */
     public enum BoatType {SAILING, POWER}
 
-    // variables to hold the boat's properties
+    // Variables to hold the boat's properties
     private BoatType type;
-
     private String name;
-
     private int year;
-
     private String makeModel;
-
     private double length;
-
     private double purchasePrice;
-
     private double expenses;
 
     /**
@@ -33,38 +28,44 @@ public class Boat {
      */
     public Boat(BoatType type, String name, int year, String makeModel, double length, double purchasePrice) {
         this.type = type;
-
         this.name = name;
-
         this.year = year;
-
         this.makeModel = makeModel;
-
         this.length = length;
-
         this.purchasePrice = purchasePrice;
-
         this.expenses = 0.0;
     }
 
-    /**
-     * Gets the name of the boat.
-     *
-     * @return The name of the boat.
-     */
+    // Getters
+    public BoatType getType() {
+        return type;
+    }
+
     public String getName() {
         return name;
     }
 
-    /**
-     * Gets the purchase price of the boat.
-     *
-     * @return The purchase price of the boat.
-     */
+    public int getYear() {
+        return year;
+    }
+
+    public String getMakeModel() {
+        return makeModel;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
     public double getPurchasePrice() {
         return purchasePrice;
     }
 
+    public double getExpenses() {
+        return expenses;
+    }
+
+    // Core functionality
     /**
      * Checks if the boat can spend a specified amount without exceeding the purchase price.
      *
@@ -79,8 +80,12 @@ public class Boat {
      * Adds the specified amount to the boat's expenses.
      *
      * @param amount The amount to spend.
+     * @throws IllegalArgumentException if the amount exceeds the remaining budget.
      */
     public void spend(double amount) {
+        if (!canSpend(amount)) {
+            throw new IllegalArgumentException("Exceeds available budget. Cannot spend this amount.");
+        }
         this.expenses += amount;
     }
 
@@ -93,15 +98,7 @@ public class Boat {
         return purchasePrice - expenses;
     }
 
-    /**
-     * Gets the total expenses incurred by the boat.
-     *
-     * @return The total expenses.
-     */
-    public double getExpenses() {
-        return expenses;
-    }
-
+    // Utility methods
     /**
      * Returns a string representation of the boat, including its details.
      *
@@ -109,7 +106,9 @@ public class Boat {
      */
     @Override
     public String toString() {
-        return String.format("%-8s %-20s %4d %-10s %4.1f' : Paid $ %.2f : Spent $ %.2f",
-                type, name, year, makeModel, length, purchasePrice, expenses);
+        return String.format(
+                "%-8s %-20s %4d %-10s %4.1f' : Paid $ %.2f : Spent $ %.2f : Remaining $ %.2f",
+                type, name, year, makeModel, length, purchasePrice, expenses, getRemainingBudget()
+        );
     }
-}// end of the Boat class
+}
