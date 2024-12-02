@@ -1,6 +1,9 @@
 public class Boat {
 
-    // enum to define the two possible types of boats
+    /**
+     * Represents a Boat with various attributes such as type, name, year, make/model, length,
+     * purchase price, and expenses.
+     */
     public enum BoatType {SAILING, POWER}
 
     // variables to hold the boat's properties
@@ -18,7 +21,16 @@ public class Boat {
 
     private double expenses;
 
-    // constructor to initialize a new Boat object with specified values
+    /**
+     * Constructs a new Boat object with specified values.
+     *
+     * @param type          The type of the boat (SAILING or POWER).
+     * @param name          The name of the boat.
+     * @param year          The year the boat was made.
+     * @param makeModel     The make or model of the boat.
+     * @param length        The length of the boat in feet.
+     * @param purchasePrice The purchase price of the boat.
+     */
     public Boat(BoatType type, String name, int year, String makeModel, double length, double purchasePrice) {
         this.type = type;
 
@@ -35,37 +47,66 @@ public class Boat {
         this.expenses = 0.0;
     }
 
-    // getter for the boat's name
+    /**
+     * Gets the name of the boat.
+     *
+     * @return The name of the boat.
+     */
     public String getName() {
         return name;
     }
 
-    // getter for the boat's purchase price
+    /**
+     * Gets the purchase price of the boat.
+     *
+     * @return The purchase price of the boat.
+     */
     public double getPurchasePrice() {
         return purchasePrice;
     }
 
-    // check if the boat can accept more expenses based on the budget
+    /**
+     * Checks if the boat can spend a specified amount without exceeding the purchase price.
+     *
+     * @param amount The amount to check.
+     * @return {@code true} if the boat can spend the amount, {@code false} otherwise.
+     */
     public boolean canSpend(double amount) {
         return (expenses + amount) <= purchasePrice;
     }
 
-    // add the expenses to the boat
+    /**
+     * Adds the specified amount to the boat's expenses.
+     *
+     * @param amount The amount to spend.
+     */
     public void spend(double amount) {
         this.expenses += amount;
     }
 
-    // get the remaining budget
+    /**
+     * Gets the remaining budget for the boat.
+     *
+     * @return The remaining budget (purchase price minus expenses).
+     */
     public double getRemainingBudget() {
         return purchasePrice - expenses;
     }
 
-    // get the total expenses for the boat
+    /**
+     * Gets the total expenses incurred by the boat.
+     *
+     * @return The total expenses.
+     */
     public double getExpenses() {
         return expenses;
     }
 
-    // override toString method to return a formatted string of the boat details
+    /**
+     * Returns a string representation of the boat, including its details.
+     *
+     * @return A formatted string with the boat's details.
+     */
     @Override
     public String toString() {
         return String.format("%-8s %-20s %4d %-10s %4.1f' : Paid $ %.2f : Spent $ %.2f",
